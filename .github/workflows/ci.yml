@@ -1,0 +1,57 @@
+name: Prod CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  fetest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache Dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Use NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "17.9.1"
+      - name: Install frontend dependencies & test
+        run: |
+          cd app
+          npm ci
+      - name: App Coverage Test
+        run: |
+          cd app
+          npm run test:unit -- --coverage
+        env:
+          CI: true
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-coverage-report
+          path: coverage
+      - name: Build Project
+        if: github.event_name == 'push'
+        run: npm run build
+      - name: Upload Build Folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
+      - name: Zip App Assets
+        run: |
+          cd app
+          zip -r build.zip ./build
+          zip -r coverage.zip ./coverage
+      - name: Create prod release
+        if: github.event_name == 'push'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      
