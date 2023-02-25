@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: build
-          path: build
+          path: dist
       - name: Zip App Assets
         run: |
           cd app
