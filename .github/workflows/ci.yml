@@ -24,9 +24,7 @@ jobs:
       - name: Install frontend dependencies & test
         run: npm ci
       - name: App Coverage Test
-        run: |
-          cd app
-          npm run test:unit -- --coverage
+        run: npm run test:unit -- --coverage
         env:
           CI: true
       - name: Upload Test Coverage
