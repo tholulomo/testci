@@ -42,7 +42,6 @@ jobs:
           path: dist
       - name: Zip App Assets
         run: |
-          cd app
           zip -r build.zip ./dist
           zip -r coverage.zip ./coverage
       - name: Create prod release
