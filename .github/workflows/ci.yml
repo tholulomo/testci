@@ -22,9 +22,7 @@ jobs:
         with:
           node-version: "17.9.1"
       - name: Install frontend dependencies & test
-        run: |
-          cd app
-          npm ci
+        run: npm ci
       - name: App Coverage Test
         run: |
           cd app
