@@ -78,5 +78,5 @@ jobs:
         if: github.event_name == 'push'
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
