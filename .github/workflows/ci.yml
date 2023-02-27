@@ -74,6 +74,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: assets-artifacts
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Create prod release
         if: github.event_name == 'push'
         run: npx semantic-release
