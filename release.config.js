@@ -6,8 +6,8 @@ module.exports = {
     '@semantic-release/release-notes-generator',
     ['@semantic-release/github', {
       assets: [
-        { path: './asset_artifacts/build.zip', label: 'AppBuild' },
-        { path: './asset_artifacts/coverage.zip', label: 'AppCoverage' }
+        { path: './build.zip', label: 'AppBuild' },
+        { path: './coverage.zip', label: 'AppCoverage' }
       ]
     }]
   ]
