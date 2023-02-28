@@ -11,9 +11,10 @@ module.exports = {
         { path: './coverage.zip', label: 'AppCoverage' }
       ]
     }],
-    '@semantic-release/exec',
-    {
-      publishCmd: 'echo ::set-output name=nextVer::${nextRelease.version}'
-    }
+    ['@semantic-release/exec',
+      {
+        publishCmd: 'echo ::set-output name=nextVer::${nextRelease.version}'
+      }
+    ]
   ]
 }
