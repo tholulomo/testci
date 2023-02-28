@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 module.exports = {
   branches: 'main',
   repositoryUrl: 'https://github.com/tholulomo/testci',
@@ -9,6 +10,10 @@ module.exports = {
         { path: './build.zip', label: 'AppBuild' },
         { path: './coverage.zip', label: 'AppCoverage' }
       ]
-    }]
+    }],
+    '@semantic-release/exec',
+    {
+      publishCmd: 'echo ::set-output name=nextVer::${nextRelease.version}'
+    }
   ]
 }

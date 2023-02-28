@@ -74,11 +74,18 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: assets-artifacts
-      - name: Display structure of downloaded files
-        run: ls -R
       - name: Create prod release
         if: github.event_name == 'push'
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: version
+    outputs:
+      output1: ${{ steps.version.outputs.nextVer }}
+  print:
+    needs: release
+    runs-on: ubuntu-20.04
+    steps:
+      - name: print version
+        run: echo ${{ needs.release.outputs.output1}}
       
